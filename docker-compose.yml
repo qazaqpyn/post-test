@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  db_dev:
+    container_name: container-pg
+    image: cgr.dev/chainguard/postgres 
+    restart: unless-stopped
+    ports:
+      - 127.0.0.1:5432:5432
+    env_file:
+      - .env
+    volumes:
+      - ./pg_data:/var/lib/postgresql/pgdata
+
+volumes:
+  pg_data:

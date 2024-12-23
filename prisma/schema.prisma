@@ -1,0 +1,56 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id String @id @default(uuid())
+  email String? @unique
+  password String?
+  avatar String?
+  created_at DateTime @default(now())
+  feedbackPosts FeedbackPost[]
+  upvotes Upvote[]
+}
+
+model FeedbackPost {
+  id String @id @default(uuid())
+  title String
+  description String
+  category Category @relation(fields: [category_id],references: [id])
+  category_id String
+  status Status @relation(fields: [status_id],references: [id])
+  status_id String
+  user User @relation(fields: [author_id],references: [id])                
+  author_id String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  upvotes Upvote[]
+}
+
+model Category {
+  id String @id @default(uuid())
+  name String @unique
+  feedbackPosts FeedbackPost[]
+}
+
+model Status {
+  id String @id @default(uuid())
+  name String @unique
+  feedbackPost FeedbackPost[]
+}
+
+model Upvote {
+  id String @id @default(uuid())
+  userId String
+  feedbackPostId String
+  user User @relation(fields: [userId], references: [id])
+  feedbackPost FeedbackPost @relation(fields: [feedbackPostId], references: [id])
+  created_at DateTime @default(now())
+  @@unique([userId, feedbackPostId])
+}
+
