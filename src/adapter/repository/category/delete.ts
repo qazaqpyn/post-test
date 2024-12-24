@@ -1,13 +1,13 @@
-import {AdapterParams, UnknownTx} from '@/adapter/types';
+import { AdapterParams, UnknownTx } from '@/adapter/types';
 import { ICategory } from '@/domain/entity/category';
-import {Prisma} from '@prisma/client';
+import { Prisma } from '@prisma/client';
 
 type Params = Pick<AdapterParams, 'db'>
 
 export type Delete = (data: Prisma.CategoryDeleteArgs, tx?: UnknownTx)=>Promise<ICategory | never>
 
-export const buildDelete = ({db}: Params): Delete=>{
+export const buildDelete = ({ db }: Params): Delete=>{
   return async (data, tx)=>{
-    return await db.getContextClient(tx).category.delete(data) as ICategory
-  }
-}
+    return await db.getContextClient(tx).category.delete(data) as ICategory;
+  };
+};

@@ -1,18 +1,30 @@
 import { AuthUseCase, buildAuthUseCase } from './auth';
-import { buildExampleUseCase, ExampleUseCase } from './example'
+import { buildCategoryUseCase, CategoryUseCase } from './category';
+import { buildFeedbackPostUseCase, FeedbackPostUseCase } from './feedBackPost';
+import { buildStatusUseCase, StatusUseCase } from './status';
 import { UseCaseParams } from './types';
+import { buildUpvoteUseCase, UpvoteUseCase } from './upvote';
 
 export type UseCase = {
   auth: AuthUseCase;
-  example: ExampleUseCase;
+  feedbackPost: FeedbackPostUseCase;
+  category: CategoryUseCase;
+  status: StatusUseCase;
+  upvote: UpvoteUseCase;
 }
 
 export const buildUseCase = (params: UseCaseParams): UseCase => {
   const auth = buildAuthUseCase(params);
-  const example = buildExampleUseCase(params);
+  const feedbackPost = buildFeedbackPostUseCase(params);
+  const category = buildCategoryUseCase(params);
+  const status = buildStatusUseCase(params);
+  const upvote = buildUpvoteUseCase(params);
 
   return {
     auth,
-    example
+    feedbackPost,
+    category,
+    status,
+    upvote,
   }
 }

@@ -38,7 +38,13 @@
     "import/namespace": "off",
     "@typescript-eslint/no-non-null-assertion": "off",
     "@typescript-eslint/no-explicit-any": "off",
-    "no-process-exit": "off"
+    "no-process-exit": "off",
+    "semi": ["error", "always"],
+    "no-multi-spaces": "error",
+    "key-spacing": ["error", { "mode": "strict" }],
+    "space-in-parens": ["error", "never"],
+    "object-curly-spacing": ["error", "always"],
+    "keyword-spacing": ["error", { "before": true, "after": true }]
   }
 }
 

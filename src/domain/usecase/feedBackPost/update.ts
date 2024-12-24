@@ -1,4 +1,4 @@
-import {UseCaseParams} from '@/domain/usecase/types';
+import { UseCaseParams } from '@/domain/usecase/types';
 import { IFeedbackPost } from '@/domain/entity/feedbackPost';
 import { Prisma } from '@prisma/client';
 import { ICategory } from '@/domain/entity/category';
@@ -12,8 +12,8 @@ export type UpdatePost = (params:{
   status?:string
 }) => Promise<IFeedbackPost | never>
 
-export const buildUpdatePost = ({adapter}: UseCaseParams): UpdatePost=>{
-  return async ({postId, title, description, category, status})=>{
+export const buildUpdatePost = ({ adapter }: UseCaseParams): UpdatePost=>{
+  return async ({ postId, title, description, category, status })=>{
     let categoryItem: ICategory | null = null;
     let statusItem: IStatus | null = null;
 
@@ -24,26 +24,26 @@ export const buildUpdatePost = ({adapter}: UseCaseParams): UpdatePost=>{
 
       if (!categoryItem) {
         categoryItem = await adapter.categoryRepository.create({
-          data:{
-            name:category.toLowerCase()
+          data: {
+            name: category.toLowerCase()
           }
-        })
+        });
       }
     }
 
     if (status) {
       statusItem = await adapter.statusRepository.get({
-        where:{
-          name:status.toLowerCase()
+        where: {
+          name: status.toLowerCase()
         }
-      })
+      });
       
-      if(!statusItem){
+      if (!statusItem){
         statusItem = await adapter.statusRepository.create({
-          data:{
-            name:status.toLowerCase()
+          data: {
+            name: status.toLowerCase()
           }
-        })
+        });
       }
     }
 
@@ -52,15 +52,15 @@ export const buildUpdatePost = ({adapter}: UseCaseParams): UpdatePost=>{
       ...(description && { description }),
       ...(categoryItem && { category_id: categoryItem.id }),
       ...(statusItem && { status_id: statusItem.id })
-    }
+    };
 
     const post = await adapter.feedbackPostRepository.update({
-      where:{
-        id:postId
+      where: {
+        id: postId
       },
-      data:updateData
-    })
+      data: updateData
+    });
 
-    return post
-  }
-}
+    return post;
+  };
+};

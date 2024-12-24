@@ -2,12 +2,12 @@ import { buildToggleUpvote, ToggleUpvote } from './toggle';
 import { UseCaseParams } from '@/domain/usecase/types';
 
 
-export type FeedbackPostUseCase = {
+export type UpvoteUseCase = {
   toggleUpvote: ToggleUpvote;
 }
 
-export const buildAuthUseCase = (params: UseCaseParams): FeedbackPostUseCase => {
+export const buildUpvoteUseCase = (params: UseCaseParams): UpvoteUseCase => {
   return {
     toggleUpvote: buildToggleUpvote(params)
-  }
-}
+  };
+};

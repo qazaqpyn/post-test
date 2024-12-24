@@ -1,5 +1,5 @@
-import { check, header } from 'express-validator'
-import { authRequired, validateSchema } from '../../middlewares'
+import { check, header } from 'express-validator';
+import { authRequired, validateSchema } from '../../middlewares';
 
 /**
   * @openapi

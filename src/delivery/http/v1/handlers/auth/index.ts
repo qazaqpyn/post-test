@@ -19,7 +19,7 @@ export type AuthMethods = {
 
 const buildRegisterRoutes = (methods: AuthMethods) => {
   return (root: Express.Router) => {
-    const namespace = Express.Router()
+    const namespace = Express.Router();
 
     /**
      * @openapi
@@ -53,7 +53,7 @@ const buildRegisterRoutes = (methods: AuthMethods) => {
       '/signin',
       authorizationRules,
       createRouteHandler(methods.authorize)
-    )
+    );
 
     /**
      * @openapi
@@ -83,7 +83,7 @@ const buildRegisterRoutes = (methods: AuthMethods) => {
       '/signup',
       authorizationRules,
       createRouteHandler(methods.register)
-    )
+    );
 
     /**
      * @openapi
@@ -115,7 +115,7 @@ const buildRegisterRoutes = (methods: AuthMethods) => {
       '/refresh',
       refreshRules,
       createRouteHandler(methods.refresh)
-    )
+    );
 
     /**
      * @openapi
@@ -137,17 +137,17 @@ const buildRegisterRoutes = (methods: AuthMethods) => {
       '/me', 
       getMeRules, 
       createRouteHandler(methods.getMe)
-    )
+    );
 
-    root.use('/auth', namespace)
-  }
-}
+    root.use('/auth', namespace);
+  };
+};
 
 export const buildAuthHandler = (params: Params): IHandler => {
-  const getMe = buildGetMe(params)
-  const refresh = buildRefresh(params)
-  const authorize = buildAuthorize(params)
-  const register = buildRegister(params)
+  const getMe = buildGetMe(params);
+  const refresh = buildRefresh(params);
+  const authorize = buildAuthorize(params);
+  const register = buildRegister(params);
 
   return {
     registerRoutes: buildRegisterRoutes(
@@ -158,5 +158,5 @@ export const buildAuthHandler = (params: Params): IHandler => {
         register
       }
     )
-  }
-}
+  };
+};

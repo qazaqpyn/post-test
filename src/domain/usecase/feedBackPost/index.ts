@@ -13,7 +13,7 @@ export type FeedbackPostUseCase = {
   updatePost: UpdatePost;
 }
 
-export const buildAuthUseCase = (params: UseCaseParams): FeedbackPostUseCase => {
+export const buildFeedbackPostUseCase = (params: UseCaseParams): FeedbackPostUseCase => {
   const createPost = buildCreatePost(params);
   const deletePost = buildDeletePost(params);
   const getPostById = buildGetPostById(params);
@@ -26,6 +26,6 @@ export const buildAuthUseCase = (params: UseCaseParams): FeedbackPostUseCase => 
     deletePost,
     getPostById,
     getPostList,
-    updatePost
-  }
-}
+    updatePost,
+  };
+};

@@ -1,55 +1,55 @@
-import {UseCaseParams} from '@/domain/usecase/types';
+import { UseCaseParams } from '@/domain/usecase/types';
 import { IFeedbackPost } from '@/domain/entity/feedbackPost';
 
 export type CreatePost = (params:{
-  author_id:string,
+  authorId:string,
   title:string,
   description:string,
-  category_name:string,
-  status_name:string
+  category:string,
+  status:string
 }) => Promise<IFeedbackPost | never>
 
-export const buildCreatePost = ({adapter}: UseCaseParams): CreatePost=>{
-  return async ({author_id,title,description,category_name, status_name})=>{
-    let category = await adapter.categoryRepository.get({
-      where:{
-        name:category_name.toLowerCase()
+export const buildCreatePost = ({ adapter }: UseCaseParams): CreatePost=>{
+  return async ({ authorId,title,description,category, status })=>{
+    let categoryItem = await adapter.categoryRepository.get({
+      where: {
+        name: category.toLowerCase()
       }
-    })
+    });
 
-    if(!category){
-      category = await adapter.categoryRepository.create({
-        data:{
-          name:category_name.toLowerCase()
+    if (!categoryItem){
+      categoryItem = await adapter.categoryRepository.create({
+        data: {
+          name: category.toLowerCase()
         }
-      })
+      });
     }
 
    
-    let status = await adapter.statusRepository.get({
-      where:{
-        name:status_name.toLowerCase()
+    let statusItem = await adapter.statusRepository.get({
+      where: {
+        name: status.toLowerCase()
       }
-    })
+    });
 
-    if(!status){
-      status = await adapter.statusRepository.create({
-        data:{
-          name:status_name.toLowerCase()
+    if (!statusItem){
+      statusItem = await adapter.statusRepository.create({
+        data: {
+          name: status.toLowerCase()
         }
-      })
+      });
     }
 
     const post = await adapter.feedbackPostRepository.create({
-      data:{
-        author_id,
+      data: {
+        author_id: authorId,
         title,
         description,
-        category_id:category.id,
-        status_id: status.id
+        category_id: categoryItem.id,
+        status_id: statusItem.id
       }
-    })
+    });
 
-    return post
-  }
-}
+    return post;
+  };
+};
