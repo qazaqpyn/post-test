@@ -4,12 +4,16 @@ import { IHandler } from '../types';
 import { createRouteHandler } from '../../routeHandler';
 import { authorizedRules } from './rules';
 import { ToggleUpvote, buildToggleUpvote } from './toggle';
+import { buildGetUserUpvotes, GetUserUpvotes } from './getUserVotes';
+import { buildGetPostUpvotes, GetPostUpvotes } from './getPostVotes';
 
 
 type Params = Pick<DeliveryParams, 'upvote'>;
 
 export type UpvoteMethods = {
-  toggleUpvote: ToggleUpvote; 
+  toggleUpvote: ToggleUpvote;
+  getUserUpvotes: GetUserUpvotes;
+  getPostUpvotes: GetPostUpvotes;
 };
 
 const buildRegisterRoutes = (methods: UpvoteMethods) => (
@@ -17,6 +21,63 @@ const buildRegisterRoutes = (methods: UpvoteMethods) => (
     const namespace = Express.Router();
 
     namespace.use(authorizedRules);
+
+    /**
+     * @openapi
+     * /upvote:
+     *   get:
+     *     tags:
+     *       - Upvote
+     *     security:
+     *       - bearerAuth: []
+     *     produces:
+     *       - application/json
+     *     responses:
+     *       200:
+     *         description: List of user upvotes
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: array
+     *               items:
+     *                 $ref: '#/components/entities/Upvote'
+     */
+    namespace.get(
+      '',
+      createRouteHandler(methods.getUserUpvotes)
+    );
+
+    /**
+     * @openapi
+     * /upvote/{postId}:
+     *   get:
+     *     tags:
+     *       - Upvote
+     *     security:
+     *      - bearerAuth: []
+     *     produces:
+     *       - application/json
+     *     parameters:
+     *       - in: path
+     *         name: postId
+     *         required: true
+     *         schema:
+     *           type: string
+     *         description: Post id
+     *     responses:
+     *       200:
+     *         description: List of post upvotes
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: array
+     *               items:
+     *                 $ref: '#/components/entities/Upvote'
+     */
+    namespace.get(
+      '/:postId',
+      createRouteHandler(methods.getPostUpvotes)
+    );
 
     /**
      * @openapi
@@ -48,7 +109,7 @@ const buildRegisterRoutes = (methods: UpvoteMethods) => (
      *                  description: A message indicating the success of the operation
      *                  example: "Upvote toggled successfully"
      */
-    namespace.get(
+    namespace.post(
       '/:postId',
       createRouteHandler(methods.toggleUpvote)
     );
@@ -57,10 +118,12 @@ const buildRegisterRoutes = (methods: UpvoteMethods) => (
   }
 );
 
-export const buildFeedbackPostHandler = (params: Params): IHandler => {
+export const buildUpvoteHandler = (params: Params): IHandler => {
   return {
     registerRoutes: buildRegisterRoutes({
-      toggleUpvote: buildToggleUpvote(params)
+      toggleUpvote: buildToggleUpvote(params),
+      getUserUpvotes: buildGetUserUpvotes(params),
+      getPostUpvotes: buildGetPostUpvotes(params),
     })
   };
 };

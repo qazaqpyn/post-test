@@ -5,29 +5,9 @@
 
 ## Setup Instructions
 
-1. Install Dependencies
+1. Run the Project
   ```bash
-  yarn install
-  ```
-
-2. Environment Configuration
-  ```bash
-  cp .env.example .env
-  ```
-
-3. Database Migration
-  ```bash
-  npx prisma migrate dev
-  ```
-
-4. Generate Prisma Client
-  ```bash
-  npx prisma generate
-  ```
-
-5. Run the Project
-  ```bash
-  make run
+  make setup
   ```
 
 ## API Documentation

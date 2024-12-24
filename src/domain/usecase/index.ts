@@ -26,5 +26,5 @@ export const buildUseCase = (params: UseCaseParams): UseCase => {
     category,
     status,
     upvote,
-  }
-}
+  };
+};

@@ -5,6 +5,7 @@ import { buildAuthHandler } from './auth';
 import { buildFeedbackPostHandler } from './feedbackPost';
 import { buildCategoryHandler } from './category';
 import { buildStatusHandler } from './status';
+import { buildUpvoteHandler } from './upvote';
 
 export const buildHandler = (params: DeliveryParams): Express.Router => {
   const router = Express.Router();
@@ -14,6 +15,7 @@ export const buildHandler = (params: DeliveryParams): Express.Router => {
     buildCategoryHandler(params),
     buildStatusHandler(params),
     buildFeedbackPostHandler(params),
+    buildUpvoteHandler(params),
   ];
 
   for (let i = 0; i < handlers.length; i++){

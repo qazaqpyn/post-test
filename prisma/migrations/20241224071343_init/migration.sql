@@ -44,6 +44,7 @@ CREATE TABLE "Upvote" (
     "id" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
     "feedbackPostId" TEXT NOT NULL,
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "Upvote_pkey" PRIMARY KEY ("id")
 );
