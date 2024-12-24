@@ -21,5 +21,5 @@ export interface IStatus extends Status {}
  *            feedbackPosts:
  *                type: array
  *                items:
- *                    $ref: '#/components/schemas/FeedbackPost'
+ *                    $ref: '#/components/entities/FeedbackPost'
  */

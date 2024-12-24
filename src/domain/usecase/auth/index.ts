@@ -22,5 +22,5 @@ export const buildAuthUseCase = (params: UseCaseParams): AuthUseCase => {
     refresh,
     authorize,
     register
-  }
-}
+  };
+};

@@ -1,4 +1,4 @@
-import {IUser} from '@/domain/entity/user';
+import { IUser } from '@/domain/entity/user';
 import * as bcrypt from 'bcrypt';
 import { Adapter } from '@/domain/types';
 
@@ -7,8 +7,8 @@ export type CheckCredentials = (data: {
   password: string,
 }) => Promise<IUser | null | never>;
 
-export const buildCheckCredentials = ({userRepository}: Adapter): CheckCredentials => {
-  return async ({email, password}) => {
+export const buildCheckCredentials = ({ userRepository }: Adapter): CheckCredentials => {
+  return async ({ email, password }) => {
     const user = await userRepository.get({
       where: {
         email: {
@@ -19,24 +19,18 @@ export const buildCheckCredentials = ({userRepository}: Adapter): CheckCredentia
           not: null
         }
       },
-      select: {
-        id: true,
-        email: true,
-        avatar: true,
-        created_at: true
-      }
-    }) 
+    }); 
 
     if (!user || !user.password) {
-      return null
+      return null;
     }
 
-    const passwordsSame = await bcrypt.compare(password, user?.password)
+    const passwordsSame = await bcrypt.compare(password, user?.password);
 
     if (!passwordsSame) {
-      return null
+      return null;
     }
  
-    return user
-  }
-}
+    return user;
+  };
+};

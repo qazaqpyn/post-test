@@ -28,153 +28,167 @@ const buildRegisterRoutes = (methods: CategoryMethods) => (
     /**
      * @openapi
      * /category/list:
-     *  get:
-     *   tags: Category
-     *  produces:
-     *   - application/json
-     * responses:
-     *  200:
-     *  description: List of categories
-     * content:
-     *  application/json:
-     *    schema:
-     *      type: array
-     *      items:
-     *        $ref: '#/components/entities/Category'
-      */
+     *   get:
+     *     tags:
+     *       - Category
+     *     security:
+     *       - bearerAuth: []
+     *     produces:
+     *       - application/json
+     *     responses:
+     *       200:
+     *         description: List of categories
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: array
+     *               items:
+     *                 $ref: '#/components/entities/Category'
+     */
 
 
     namespace.get(
-      'list',
+      '/list',
       createRouteHandler(methods.getCategoryList)
     );
 
     /**
      * @openapi
-     * /category:
-     *  get:
-     *   tags: Category
-     *  produces:
-     *   - application/json
-     *  parameters:
-     *    - in: path
-     *    name: categoryId
-     *    required: true
-     *    schema:
-     *      type: string
-     *     description: Category id
-     * responses:
-     *  200:
-     *  description: Created category
-     * content:
-     *  application/json:
-     *    schema:
-     *      $ref: '#/components/entities/Category'
+     * /category/{categoryId}:
+     *   get:
+     *     tags:
+     *       - Category
+     *     security:
+     *       - bearerAuth: []
+     *     produces:
+     *       - application/json
+     *     parameters:
+     *       - in: path
+     *         name: categoryId
+     *         required: true
+     *         schema:
+     *           type: string
+     *         description: Category id
+     *     responses:
+     *       200:
+     *         description: Category
+     *         content:
+     *           application/json:
+     *             schema:
+     *               $ref: '#/components/entities/Category'
      */
 
 
     namespace.get(
-      ':categoryId',
+      '/:categoryId',
       createRouteHandler(methods.getCategory)
     );
 
     /**
      * @openapi
      * /category:
-     *  post:
-     *   tags: Category
-     *  produces:
-     *   - application/json
-     * requestBody:
-     *  required: true
-     *  content:
-     *    application/json:
-     *      schema:
-     *        type: object
-     *       properties:
-     *        name:
-     *         type: string
-     *         description: Category name
-     * responses:
-     *  200:
-     *  description: Created category
-     * content:
-     *  application/json:
-     *    schema:
-     *      $ref: '#/components/entities/Category'
+     *   post:
+     *     tags:
+     *       - Category
+     *     security:
+     *       - bearerAuth: []
+     *     produces:
+     *       - application/json
+     *     requestBody:
+     *       required: true
+     *       content:
+     *         application/json:
+     *           schema:
+     *             type: object
+     *             properties:
+     *               name:
+     *                 type: string
+     *                 description: Category name
+     *                 required: true
+     *     responses:
+     *       200:
+     *         description: Created category
+     *         content:
+     *           application/json:
+     *             schema:
+     *               $ref: '#/components/entities/Category'
      */
 
     namespace.post(
       '',
       createRouteHandler(methods.createCategory)
     );
-
+ 
     /**
      * @openapi
-     * /category:
-     *  delete:
-     *   tags: Category
-     *  produces:
-     *   - application/json
-     *  parameters:
-     *    - in: path
-     *    name: categoryId
-     *    required: true
-     *    schema:
-     *      type: string
-     *     description: Category id
-     * responses:
-     *  200:
-     *  description: Delete category
-     * content:
-     *  application/json:
-     *    schema:
-     *      $ref: '#/components/entities/Category'
+     * /category/{categoryId}:
+     *   delete:
+     *     tags:
+     *       - Category
+     *     security:
+     *       - bearerAuth: []
+     *     produces:
+     *       - application/json
+     *     parameters:
+     *       - in: path
+     *         name: categoryId
+     *         required: true
+     *         schema:
+     *           type: string
+     *         description: Category id
+     *     responses:
+     *       200:
+     *         description: Deleted category
+     *         content:
+     *           application/json:
+     *             schema:
+     *               $ref: '#/components/entities/Category'
      */
 
-
     namespace.delete(
-      ':categoryId',
+      '/:categoryId',
       createRouteHandler(methods.deleteCategory)
     );
 
     /**
      * @openapi
-     * /category:
-     *  put:
-     *   tags: Category
-     *  produces:
-     *   - application/json
-     *  parameters:
-     *    - in: path
-     *    name: categoryId
-     *    required: true
-     *    schema:
-     *      type: string
-     *    description: Category id
-     *  requestBody:
-     *   required: true
-     *   content:
-     *    application/json:
-     *      schema:
-     *        type: object
-     *        properties:
-     *          name:
-     *            type: string
-     *            description: Category name
-     *            required: true
-     * responses:
-     *  200:
-     *  description: Created category
-     * content:
-     *  application/json:
-     *    schema:
-     *      $ref: '#/components/entities/Category'
+     * /category/{categoryId}:
+     *   put:
+     *     tags:
+     *       - Category
+     *     security:
+     *       - bearerAuth: []
+     *     produces:
+     *       - application/json
+     *     parameters:
+     *       - in: path
+     *         name: categoryId
+     *         required: true
+     *         schema:
+     *           type: string
+     *         description: Category id
+     *     requestBody:
+     *       required: true
+     *       content:
+     *         application/json:
+     *           schema:
+     *             type: object
+     *             properties:
+     *               name:
+     *                 type: string
+     *                 description: Category name
+     *                 required: true
+     *     responses:
+     *       200:
+     *         description: Updated category
+     *         content:
+     *           application/json:
+     *             schema:
+     *               $ref: '#/components/entities/Category'
      */
 
-
     namespace.put(
-      ':categoryId',
+      '/:categoryId',
       createRouteHandler(methods.updateCategory)
     );
 

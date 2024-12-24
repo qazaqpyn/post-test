@@ -21,5 +21,5 @@ export interface ICategory extends Category {}
  *            feedbackPosts:
  *                type: array
  *                items:
- *                    $ref: '#/components/schemas/FeedbackPost'
+ *                    $ref: '#/components/entities/FeedbackPost'
  */

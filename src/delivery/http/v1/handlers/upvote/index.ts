@@ -19,41 +19,37 @@ const buildRegisterRoutes = (methods: UpvoteMethods) => (
     namespace.use(authorizedRules);
 
     /**
- * @openapi
- * /upvote/{postId}:
- *   get:
- *     tags:
- *       - Upvote
- *     summary: Upvote a feedback post
- *     description: This endpoint allows you to upvote a feedback post by providing its ID. Requires Authorization
- *    parameters:
- *      - in: path
- *       name: postId
- *      required: true
- *     schema:
- *      type: string
- *    description: The ID of the feedback post to upvote.
- *     responses:
- *       200:
- *         description: Successfully upvoted the feedback post
- *        content:
- *         application/json:
- *          schema:
- *           type: object
- *          properties:
- *          message:
- *          type: string
- *         description: A message confirming the upvote
- *        example: "Feedback post upvoted successfully."
- *      404:
- *       description: Feedback post not found
- *     500:
- *      description: Server error while upvoting the feedback post
- */
-
-
+     * @openapi
+     * /upvote/{postId}:
+     *   post:
+     *     tags:
+     *       - Upvote
+     *     security:
+     *      - bearerAuth: []
+     *     produces:
+     *       - application/json
+     *     parameters:
+     *       - in: path
+     *         name: postId
+     *         required: true
+     *         schema:
+     *           type: string
+     *         description: Post id
+     *     responses:
+     *       200:
+     *         description: Toggle upvote
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: object
+     *               properties:
+     *                 message:
+     *                  type: string
+     *                  description: A message indicating the success of the operation
+     *                  example: "Upvote toggled successfully"
+     */
     namespace.get(
-      ':postId',
+      '/:postId',
       createRouteHandler(methods.toggleUpvote)
     );
 

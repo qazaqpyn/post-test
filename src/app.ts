@@ -1,5 +1,5 @@
 import * as client from './lib/clients';
-import {config as cfg, config, devMode} from '@/config';
+import { config as cfg, config, devMode } from '@/config';
 import * as adapter from '@/adapter';
 import * as usecase from '@/domain/usecase';
 import * as service from '@/domain/service';
@@ -108,6 +108,6 @@ const entry = async () => {
   process.on('SIGQUIT', sigListener);
   process.on('SIGTERM', sigListener);
   process.on('exit', stopListener);
-}
+};
 
 entry();

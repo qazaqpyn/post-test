@@ -28,82 +28,87 @@ const buildRegisterRoutes = (methods: StatusMethods) => (
     /**
      * @openapi
      * /status/list:
-     *  get:
-     *   tags: Status
-     *  produces:
-     *   - application/json
-     * responses:
-     *  200:
-     *  description: List of statuses
-     * content:
-     *  application/json:
-     *    schema:
-     *      type: array
-     *      items:
-     *        $ref: '#/components/entities/Status'
-      */
-
-
+     *   get:
+     *     tags:
+     *       - Status
+     *     security:
+     *       - bearerAuth: []
+     *     produces:
+     *       - application/json
+     *     responses:
+     *       200:
+     *         description: List of statuses
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: array
+     *               items:
+     *                 $ref: '#/components/entities/Status'
+     */
     namespace.get(
-      'list',
+      '/list',
       createRouteHandler(methods.getStatusList)
     );
 
     /**
      * @openapi
-     * /status:
-     *  get:
-     *   tags: Status
-     *  produces:
-     *   - application/json
-     *  parameters:
-     *    - in: path
-     *    name: statusId
-     *    required: true
-     *    schema:
-     *      type: string
-     *    description: status id
-     * responses:
-     *  200:
-     *  description: Created status
-     * content:
-     *  application/json:
-     *    schema:
-     *      $ref: '#/components/entities/Status'
+     * /status/{statusId}:
+     *   get:
+     *     tags:
+     *       - Status
+     *     security:
+     *       - bearerAuth: []
+     *     produces:
+     *       - application/json
+     *     parameters:
+     *       - in: path
+     *         name: statusId
+     *         required: true
+     *         schema:
+     *           type: string
+     *         description: Status id
+     *     responses:
+     *       200:
+     *         description: Status
+     *         content:
+     *           application/json:
+     *             schema:
+     *               $ref: '#/components/entities/Status'
      */
-
-
     namespace.get(
-      ':statusId',
+      '/:statusId',
       createRouteHandler(methods.getStatus)
     );
 
     /**
      * @openapi
      * /status:
-     *  post:
-     *   tags: Status
-     *  produces:
-     *   - application/json
-     * requestBody:
-     *  required: true
-     *  content:
-     *    application/json:
-     *      schema:
-     *        type: object
-     *       properties:
-     *        name:
-     *         type: string
-     *         description: Status name
-     * responses:
-     *  200:
-     *  description: Created status
-     * content:
-     *  application/json:
-     *    schema:
-     *      $ref: '#/components/entities/Status'
+     *   post:
+     *     tags: 
+     *       - Status
+     *     security:
+     *       - bearerAuth: []
+     *     produces:
+     *       - application/json
+     *     requestBody:
+     *       required: true
+     *       content:
+     *         application/json:
+     *           schema:
+     *             type: object
+     *             properties:
+     *               name:
+     *                 type: string
+     *                 description: Status name
+     *                 required: true
+     *     responses:
+     *       200:
+     *         description: Created status
+     *         content:
+     *           application/json:
+     *             schema:
+     *               $ref: '#/components/entities/Status'
      */
-
     namespace.post(
       '',
       createRouteHandler(methods.createStatus)
@@ -111,70 +116,72 @@ const buildRegisterRoutes = (methods: StatusMethods) => (
 
     /**
      * @openapi
-     * /status:
-     *  delete:
-     *   tags: Status
-     *  produces:
-     *   - application/json
-     *  parameters:
-     *    - in: path
-     *    name: statusId
-     *    required: true
-     *    schema:
-     *      type: string
-     *     description: status id
-     * responses:
-     *  200:
-     *  description: Created status
-     * content:
-     *  application/json:
-     *    schema:
-     *      $ref: '#/components/entities/Status'
+     * /status/{statusId}:
+     *   delete:
+     *     tags: 
+     *       - Status
+     *     security:
+     *       - bearerAuth: []
+     *     produces:
+     *       - application/json
+     *     parameters:
+     *       - in: path
+     *         name: statusId
+     *         required: true
+     *         schema:
+     *           type: string
+     *         description: Status id
+     *     responses:
+     *       200:
+     *         description: Deleted status
+     *         content:
+     *           application/json:
+     *             schema:
+     *               $ref: '#/components/entities/Status'
      */
-
-
     namespace.delete(
-      ':statusId',
+      '/:statusId',
       createRouteHandler(methods.deleteStatus)
     );
 
     /**
      * @openapi
-     * /status:
-     *  put:
-     *   tags: Status
-     *  produces:
-     *   - application/json
-     *  parameters:
-     *    - in: path
-     *    name: statusId
-     *    required: true
-     *    schema:
-     *      type: string
-     *    description: Status id
-     *  requestBody:
-     *   required: true
-     *   content:
-     *    application/json:
-     *      schema:
-     *        type: object
-     *        properties:
-     *          name:
-     *            type: string
-     *            description: Status name
-     *            required: true
-     * responses:
-     *  200:
-     *  description: Created status
-     * content:
-     *  application/json:
-     *    schema:
-     *      $ref: '#/components/entities/Status
+     * /status/{statusId}:
+     *   put:
+     *     tags: 
+     *       - Status
+     *     security:
+     *       - bearerAuth: []
+     *     produces:
+     *       - application/json
+     *     parameters:
+     *       - in: path
+     *         name: statusId
+     *         required: true
+     *         schema:
+     *           type: string
+     *         description: Status id
+     *     requestBody:
+     *       required: true
+     *       content:
+     *         application/json:
+     *           schema:
+     *             type: object
+     *             properties:
+     *               name:
+     *                 type: string
+     *                 description: Status name
+     *                 required: true
+     *     responses:
+     *       200:
+     *         description: Updated status
+     *         content:
+     *           application/json:
+     *             schema:
+     *               $ref: '#/components/entities/Status'
      */
-
-
     namespace.put(
-      ':statusId',
+      '/:statusId',
       createRouteHandler(methods.updateStatus)
     );
 

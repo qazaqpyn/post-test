@@ -31,6 +31,8 @@ const buildRegisterRoutes = (methods: FeedbackPostMethods) => (
  *   get:
  *     tags:
  *       - FeedbackPost
+ *     security:
+ *       - bearerAuth: []
  *     summary: Get all feedback posts
  *     parameters:
  *       - in: query
@@ -73,25 +75,12 @@ const buildRegisterRoutes = (methods: FeedbackPostMethods) => (
  *             schema:
  *               type: array
  *               items:
- *                 type: object
- *                 properties:
- *                   id:
- *                     type: string
- *                   title:
- *                     type: string
- *                   description:
- *                     type: string
- *                   created_at:
- *                     type: string
- *                     format: date-time
- *                   updated_at:
- *                     type: string
- *                     format: date-time
+ *                 $ref: '#/components/entities/FeedbackPost'
  */
 
 
     namespace.get(
-      'list',
+      '/list',
       createRouteHandler(methods.getList)
     );
 
@@ -101,6 +90,8 @@ const buildRegisterRoutes = (methods: FeedbackPostMethods) => (
  *   get:
  *     tags:
  *       - FeedbackPost
+ *     security:
+ *       - bearerAuth: []
  *     summary: Get a feedback post by its ID
  *     description: This endpoint allows you to retrieve a specific feedback post using its ID. Requires Authorization
  *     parameters:
@@ -116,43 +107,7 @@ const buildRegisterRoutes = (methods: FeedbackPostMethods) => (
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 id:
- *                   type: string
- *                   description: The ID of the feedback post
- *                 title:
- *                   type: string
- *                   description: The title of the feedback post
- *                 description:
- *                   type: string
- *                   description: The description/content of the feedback post
- *                 category:
- *                   type: object
- *                   properties:
- *                     id:
- *                       type: string
- *                       description: The ID of the category
- *                     name:
- *                       type: string
- *                       description: The name of the category
- *                 status:
- *                   type: object
- *                   properties:
- *                    id: 
- *                     type: string
- *                     description: The ID of the status
- *                    name:
- *                     type: string
- *                     description: The name of the status
- *                 created_at:
- *                   type: string
- *                   format: date-time
- *                   description: The timestamp when the feedback post was created
- *                 updated_at:
- *                   type: string
- *                   format: date-time
- *                   description: The timestamp when the feedback post was last updated
+ *               $ref: '#/components/entities/FeedbackPost'
  *       404:
  *         description: Feedback post not found
  *       500:
@@ -160,7 +115,7 @@ const buildRegisterRoutes = (methods: FeedbackPostMethods) => (
  */
 
     namespace.get(
-      ':postId',
+      '/:postId',
       createRouteHandler(methods.getPost)
     );
 
@@ -170,6 +125,8 @@ const buildRegisterRoutes = (methods: FeedbackPostMethods) => (
      *   post:
      *     tags:
      *       - FeedbackPost
+     *     security:
+     *       - bearerAuth: []
      *     summary: Create a new feedback post
      *     description: This endpoint allows you to create a new feedback post by providing a title, description, and category.
      *     requestBody:
@@ -185,41 +142,24 @@ const buildRegisterRoutes = (methods: FeedbackPostMethods) => (
      *               description:
      *                 type: string
      *                 description: The description/content of the feedback post
-     *               category_name:
+     *               category:
      *                 type: string
-     *                 description: The ID of the category to which the feedback post belongs
+     *                 description: The name of the category to which the feedback post belongs
+     *               status:
+     *                  type: string
+     *                  description: The status of the feedback post. Must be one of the valid enum values.
      *             required:
      *               - title
      *               - description
-     *               - category_id
+     *               - category
+     *               - status
      *     responses:
      *       201:
      *         description: Successfully created the feedback post
      *         content:
      *           application/json:
      *             schema:
-     *               type: object
-     *               properties:
-     *                 id:
-     *                   type: string
-     *                   description: The ID of the newly created feedback post
-     *                 title:
-     *                   type: string
-     *                   description: The title of the feedback post
-     *                 description:
-     *                   type: string
-     *                   description: The description/content of the feedback post
-     *                 category_id:
-     *                   type: string
-     *                   description: The ID of the category to which the feedback post belongs
-     *                 created_at:
-     *                   type: string
-     *                   format: date-time
-     *                   description: The timestamp when the feedback post was created
-     *                 updated_at:
-     *                   type: string
-     *                   format: date-time
-     *                   description: The timestamp when the feedback post was last updated
+     *               $ref: '#/components/entities/FeedbackPost'
      *       400:
      *         description: Invalid input data or missing required fields
      *       500:
@@ -236,6 +176,8 @@ const buildRegisterRoutes = (methods: FeedbackPostMethods) => (
      *   delete:
      *     tags:
      *       - FeedbackPost
+     *     security:
+     *       - bearerAuth: []
      *     summary: Delete a feedback post by its ID
      *     parameters:
      *       - in: path
@@ -264,16 +206,18 @@ const buildRegisterRoutes = (methods: FeedbackPostMethods) => (
 
 
     namespace.delete(
-      ':postId',
+      '/:postId',
       createRouteHandler(methods.deletePost)
     );
 
     /**
  * @openapi
  * /feedbackPost/{postId}:
- *   patch:
+ *   put:
  *     tags:
  *       - FeedbackPost
+ *     security:
+ *       - bearerAuth: []
  *     summary: Update a feedback post by its ID
  *     description: This endpoint allows you to update a feedback post by providing its ID and the fields to update (title, description, category, and status). Status accepts only [IDEA, PLANNED, IN_PROGRESS, COMPLETED, REJECTED]
  *     parameters:
@@ -309,35 +253,7 @@ const buildRegisterRoutes = (methods: FeedbackPostMethods) => (
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 id:
- *                   type: string
- *                   description: The ID of the updated feedback post
- *                 title:
- *                   type: string
- *                   description: The updated title of the feedback post
- *                 description:
- *                   type: string
- *                   description: The updated description/content of the feedback post
- *                 category:
- *                   type: object
- *                   properties:
- *                     id:
- *                       type: string
- *                       description: The ID of the category
- *                     name:
- *                       type: string
- *                       description: The name of the category
- *                 status:
- *                   type: object
- *                   properties:
- *                     id:
- *                       type: string
- *                       description: The ID of the status
- *                     name:
- *                       type: string
- *                       description: The name of the status
+ *               $ref: '#/components/entities/FeedbackPost'
  *       '400':
  *         description: Invalid input data or missing fields
  *       '404':
@@ -348,7 +264,7 @@ const buildRegisterRoutes = (methods: FeedbackPostMethods) => (
 
 
     namespace.put(
-      ':postId',
+      '/:postId',
       createRouteHandler(methods.updatePost)
     );
 

@@ -3,10 +3,10 @@ http:
   port: 8000
 
 postgres:
-  user: postgres
-  password: '123'
-  db: dev
-  host: 127.0.0.1
+  user: admin 
+  password: admin
+  db: admin
+  host: localhost
   port: 5432
 
 jwt:

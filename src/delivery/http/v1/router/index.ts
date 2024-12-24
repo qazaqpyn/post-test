@@ -14,4 +14,4 @@ export const buildRouter = (handler: Express.Router) => {
   router.use(errorHandler);
 
   return router;
-}
+};

@@ -42,5 +42,5 @@ export interface IFeedbackPost extends FeedbackPost {}
  *            upvotes:
  *                type: array
  *                items:
- *                    $ref: '#/components/schemas/Upvote'
+ *                    $ref: '#/components/entities/Upvote'
  */

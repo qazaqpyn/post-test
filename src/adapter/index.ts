@@ -30,5 +30,5 @@ export const buildAdapter = (params: AdapterParams): Adapter => {
     upvoteRepository,
     categoryRepository,
     exampleGateway
-  }
-}
+  };
+};

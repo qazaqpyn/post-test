@@ -12,8 +12,8 @@ const buildStart = (app: Express.Express) => {
     };
 
     return stop;
-  }
-}
+  };
+};
 
 export const buildServer = () => {
   const app = Express();
@@ -21,4 +21,4 @@ export const buildServer = () => {
   return {
     start: buildStart(app)
   };
-}
+};

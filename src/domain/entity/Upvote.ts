@@ -22,12 +22,12 @@ export interface IUpvote extends Upvote {}
  *            feedbackPostId:
  *                type: string
  *            user:
- *                $ref: '#/components/schemas/User'
+ *                $ref: '#/components/entities/User'
  *            feedbackPost:
- *                $ref: '#/components/schemas/FeedbackPost'
- *           created_at:
- *               type: string
- *              format: date
+ *                $ref: '#/components/entities/FeedbackPost'
+ *            created_at:
+ *                type: string
+ *                format: date
  *            unique:
  *                type: array
  *                items:

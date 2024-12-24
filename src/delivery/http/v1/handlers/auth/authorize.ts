@@ -1,14 +1,15 @@
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import { DeliveryParams } from '@/delivery/types';
+import { RegisterRequest } from '../types';
 
 type Params = Pick<DeliveryParams, 'auth'>
 
-export type Authorize = (req: Request, res: Response)=>Promise<Response>
+export type Authorize = (req: RegisterRequest, res: Response)=>Promise<Response>
 
 export const buildAuthorize = ({ auth }: Params): Authorize=>{
   return async (req, res)=>{
     const data = await auth.authorize({
-      email: req.body.email?.toLowerCase(),
+      email: req.body.email.toLowerCase(),
       password: req.body.password,
     });
 

@@ -4,6 +4,13 @@ export interface IHandler {
   registerRoutes: (root: Express.Router) => void
 }
 
+export interface RegisterRequest extends Express.Request {
+  body: {
+    email: string;
+    password: string;
+  }
+}
+
 export interface AuthRequest extends Express.Request {
   user: {
     id: string;

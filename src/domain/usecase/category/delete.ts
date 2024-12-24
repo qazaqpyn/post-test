@@ -5,7 +5,7 @@ export type DeleteCategory = (params:{
   categoryId:string
 }) => Promise<ICategory | never>
 
-export const buildDeletePost = ({ adapter }: UseCaseParams): DeleteCategory=>{
+export const buildDeleteCategory = ({ adapter }: UseCaseParams): DeleteCategory=>{
   return async ({ categoryId })=>{
 
     const category = await adapter.categoryRepository.delete({

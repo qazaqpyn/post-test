@@ -8,11 +8,11 @@ export type AuthService = {
 }
 
 export const buildAuthService = (params: Adapter): AuthService =>{
-  const checkCredentials = buildCheckCredentials(params)
-  const signAuthTokens = buildSignAuthTokens()
+  const checkCredentials = buildCheckCredentials(params);
+  const signAuthTokens = buildSignAuthTokens();
 
   return {
     checkCredentials,
     signAuthTokens
-  }
-}
+  };
+};

@@ -1,5 +1,5 @@
-import { IUser } from '@/domain/entity/user'
-import { signJWT } from '@/lib'
+import { IUser } from '@/domain/entity/user';
+import { signJWT } from '@/lib';
 
 export type signAuthTokens = (params: {
     user: IUser,
@@ -20,6 +20,6 @@ export const buildSignAuthTokens = (): signAuthTokens => {
         id: user.id,
         ...(!immortal && { expiresIn: '1y' })
       })
-    }
-  }
-}
+    };
+  };
+};
